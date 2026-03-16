@@ -1,37 +1,33 @@
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+
+import Home from "./pages/Home";
+import Donate from "./pages/Donate";
+import Pricing from "./pages/Pricing";
+import Resources from "./pages/Resources";
+import CodeOfPractice from "./pages/CodeOfPractice";
+import Contact from "./pages/Contact";
+import StartFundraiser from "./pages/StartFundraiser";
+import Login from "./pages/Login";
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      
-      <div className="bg-white shadow-lg rounded-xl p-8 w-[400px]">
-        <h1 className="text-3xl font-bold text-center text-blue-600 mb-6">
-          React Tailwind App
-        </h1>
+    <BrowserRouter>
 
-        <form className="flex flex-col gap-4">
-          <input
-            type="text"
-            placeholder="Enter Name"
-            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
+      <Navbar />
 
-          <input
-            type="email"
-            placeholder="Enter Email"
-            className="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/donate" element={<Donate />} />
+        <Route path="/pricing" element={<Pricing />} />
+        <Route path="/resources" element={<Resources />} />
+        <Route path="/code-of-practice" element={<CodeOfPractice />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/start-fundraiser" element={<StartFundraiser />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
 
-          <button
-            type="submit"
-            className="bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
-
-    </div>
+    </BrowserRouter>
   );
 }
 

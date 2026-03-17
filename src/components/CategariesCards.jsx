@@ -88,118 +88,133 @@ const CategariesCards = () => {
     }
   ];
 
-    const scrollRef = useRef();
 
-  // Auto scroll every 5 sec
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollBy({
-          left: 300,
-          behavior: "smooth",
-        });
-      }
-    }, 1000);
+  const scrollRef = useRef(null);
 
-    return () => clearInterval(interval);
-  }, []);
-
-  // Manual scroll
+  // scroll by full container width (3 cards)
   const scrollLeft = () => {
-    scrollRef.current.scrollBy({ left: -300, behavior: "smooth" });
+    if (scrollRef.current) {
+      const scrollAmount = scrollRef.current.clientWidth;
+
+      scrollRef.current.scrollBy({
+        left: -scrollAmount,
+        behavior: "smooth",
+      });
+    }
   };
 
   const scrollRight = () => {
-    scrollRef.current.scrollBy({ left: 300, behavior: "smooth" });
+    if (scrollRef.current) {
+      const scrollAmount = scrollRef.current.clientWidth;
+
+      scrollRef.current.scrollBy({
+        left: scrollAmount,
+        behavior: "smooth",
+      });
+    }
   };
 
-   return (
-    <div className="relative max-w-6xl mx-auto mt-10">
+  return (
+  <div className="relative max-w-6xl mx-auto mt-10 px-4">
 
-      {/* Left Button */}
-      <button
-        onClick={scrollLeft}
-        className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-gray-500 text-white p-2 rounded-full"
-      >
-        <ChevronLeft />
-      </button>
+    {/* Left Button (hide on mobile) */}
+    <button
+      onClick={scrollLeft}
+      className="hidden md:flex absolute -left-8 lg:-left-12 top-1/2 -translate-y-1/2 z-10 
+      bg-white border shadow-md p-2 lg:p-3 rounded-full hover:bg-gray-100"
+    >
+      <ChevronLeft size={20} />
+    </button>
 
-      {/* Slider */}
-      <div
-        ref={scrollRef}
-        className="flex gap-6 overflow-x-auto scroll-smooth no-scrollbar"
-      >
-        {fundraisers.map((item) => {
-          const percent = (item.raised / item.goal) * 100;
+    {/* Slider */}
+    <div
+      ref={scrollRef}
+      className="
+      flex gap-4 md:gap-6 
+      overflow-x-auto md:overflow-hidden 
+      scroll-smooth 
+      no-scrollbar
+      "
+    >
+      {fundraisers.map((item) => {
+        const percent = (item.raised / item.goal) * 100;
 
-          return (
-            <div
-              key={item.id}
-              className="min-w-[300px] bg-white rounded-xl border border-transparent 
-              hover:border-pink-900 hover:shadow-md hover:-translate-y-1 transition"
-            >
-              {/* 👉 SAME TERA CARD CODE */}
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full h-48 object-cover rounded-t-xl"
-              />
+        return (
+          <div
+            key={item.id}
+            className="
+            min-w-full 
+            sm:min-w-[48%] 
+            lg:min-w-[32%] 
+            bg-white rounded-xl border border-transparent  
+            hover:border-pink-900 hover:shadow-md hover:-translate-y-1 transition
+            "
+          >
+            <img
+              src={item.image}
+              alt={item.title}
+              className="w-full h-40 md:h-48 object-cover rounded-t-xl"
+            />
 
-              <div className="p-4">
-                <h1 className="font-bold text-xl">{item.heading}</h1>
-                <h2 className="text-base font-semibold text-gray-700">
-                  {item.title}
-                </h2>
+            <div className="p-3 md:p-4">
+              <h1 className="font-bold text-base md:text-lg">
+                {item.heading}
+              </h1>
 
-                <div className="flex justify-between items-center mt-3">
-                  <p className="flex items-center gap-1 text-pink-900 px-2 py-1 rounded-md font-semibold text-xl">
-                    Raised:
-                    <IndianRupee size={14} />
-                    {item.raised}
-                  </p>
+              <h2 className="text-xs md:text-sm font-semibold text-gray-700">
+                {item.title}
+              </h2>
 
-                  <p className="text-sm text-gray-500">
-                    Goal: ₹{item.goal}
-                  </p>
-                </div>
-
-                <div className="w-full bg-gray-200 h-2 rounded mt-2 overflow-hidden">
-                  <div
-                    className="bg-green-500 h-2 rounded"
-                    style={{ width: `${percent}%` }}
-                  ></div>
-                </div>
-
-                <p className="flex items-center gap-2 text-sm text-gray-500 mt-3">
-                  <div className="bg-gray-500 p-2 rounded-full">
-                    <User className="text-white" size={16} />
-                  </div>
-                  Created by: {item.createdBy}
+              <div className="flex justify-between items-center mt-2 md:mt-3">
+                <p className="flex items-center gap-1 text-pink-900 font-semibold text-xs md:text-sm">
+                  Raised:
+                  <IndianRupee size={12} />
+                  {item.raised}
                 </p>
 
-                <div className="flex justify-between items-center mt-4">
-                  <button className="text-sm bg-gray-100 px-3 py-1 rounded-full">
-                    {item.supporters}
-                  </button>
+                <p className="text-[10px] md:text-xs text-gray-500">
+                  Goal: ₹{item.goal}
+                </p>
+              </div>
 
-                  <div className="bg-gray-500 p-2 rounded-full">
-                    <Share2 className="text-white" size={16} />
-                  </div>
+              <div className="w-full bg-gray-200 h-2 rounded mt-2 overflow-hidden">
+                <div
+                  className="bg-green-500 h-2 rounded"
+                  style={{ width: `${percent}%` }}
+                ></div>
+              </div>
+
+              <p className="flex items-center gap-2 text-[10px] md:text-xs text-gray-500 mt-2 md:mt-3">
+                <div className="bg-gray-500 p-1.5 rounded-full">
+                  <User className="text-white" size={12} />
+                </div>
+                {item.createdBy}
+              </p>
+
+              <div className="flex justify-between items-center mt-3">
+                <button className="text-[10px] md:text-xs bg-gray-100 px-2 py-1 rounded-full">
+                  {item.supporters}
+                </button>
+
+                <div className="bg-gray-500 p-1.5 rounded-full cursor-pointer">
+                  <Share2 className="text-white" size={12} />
                 </div>
               </div>
             </div>
-          );
-        })}
-      </div>
-
-      {/* Right Button */}
-      <button
-        onClick={scrollRight}
-        className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-gray-500 text-white p-2 rounded-full"
-      >
-        <ChevronRight />
-      </button>
+          </div>
+        );
+      })}
     </div>
+
+    {/* Right Button (hide on mobile) */}
+    <button
+      onClick={scrollRight}
+      className="hidden md:flex absolute -right-8 lg:-right-12 top-1/2 -translate-y-1/2 z-10 
+      bg-white border shadow-md p-2 lg:p-3 rounded-full hover:bg-gray-100"
+    >
+      <ChevronRight size={20} />
+    </button>
+  </div>
 
 
   );

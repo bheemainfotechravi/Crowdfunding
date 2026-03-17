@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
 import Home from "./pages/Home";
@@ -10,10 +10,12 @@ import Contact from "./pages/Contact";
 import StartFundraiser from "./pages/StartFundraiser";
 import Login from "./pages/Login";
 
+import AdminLogin from "./pages/admin/AdminLogin";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+
 function App() {
   return (
-    <BrowserRouter>
-
+    <>
       <Navbar />
 
       <Routes>
@@ -25,9 +27,12 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/start-fundraiser" element={<StartFundraiser />} />
         <Route path="/login" element={<Login />} />
-      </Routes>
 
-    </BrowserRouter>
+        {/* Admin Routes */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/dashboard" element={<AdminDashboard />} />
+      </Routes>
+    </>
   );
 }
 

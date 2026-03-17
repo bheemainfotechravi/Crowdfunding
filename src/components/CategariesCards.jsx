@@ -1,6 +1,6 @@
 import React from "react";
-import { Heart, IndianRupee, User, Share2 } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { IndianRupee, User, Share2 } from "lucide-react";
+import { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const CategariesCards = () => {

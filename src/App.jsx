@@ -9,6 +9,7 @@ import CodeOfPractice from "./pages/CodeOfPractice";
 import Contact from "./pages/Contact";
 import StartFundraiser from "./pages/StartFundraiser";
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 import AdminLogin from "./pages/admin/AdminLogin";
 import AdminDashboard from "./pages/admin/AdminDashboard";
@@ -27,6 +28,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/start-fundraiser" element={<StartFundraiser />} />
         <Route path="/login" element={<Login />} />
+         <Route path="/register" element={<Register/>} />
 
         {/* Admin Routes */}
         <Route path="/admin/login" element={<AdminLogin />} />

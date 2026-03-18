@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { Eye, EyeOff, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   // CLOSE BUTTON FUNCTION
   const handleClose = () => {
-    navigate("/"); // redirect to home
+    navigate("/"); // redirect to home (you can change route)
   };
 
   return (
@@ -24,11 +24,11 @@ const Login = () => {
           </div>
 
           <h2 className="mt-6 text-xl font-semibold text-gray-800 text-center">
-            Welcome Back
+            Welcome to crowdfunding
           </h2>
 
           <p className="text-sm text-gray-500 mt-2 text-center max-w-xs">
-            Login to manage your fundraisers and donations easily.
+            India's largest crowdfunding platform to help people in need.
           </p>
         </div>
 
@@ -44,11 +44,20 @@ const Login = () => {
           </button>
 
           <h2 className="text-center text-gray-600 text-sm mb-8">
-            Login & continue your journey
+            Sign up & manage fundraisers, donations & more
           </h2>
 
           {/* FORM */}
           <form className="space-y-6">
+
+            {/* FULL NAME */}
+            <div>
+              <input
+                type="text"
+                placeholder="Full name"
+                className="w-full border-b border-gray-300 focus:outline-none focus:border-[#8b2c3f] py-3 text-sm"
+              />
+            </div>
 
             {/* EMAIL */}
             <div>
@@ -74,31 +83,21 @@ const Login = () => {
               </div>
             </div>
 
-            {/* FORGOT PASSWORD */}
-            <div className="text-right text-sm">
-              <Link
-                to="/forgot-password"
-                className="text-[#8b2c3f] hover:underline"
-              >
-                Forgot Password?
-              </Link>
-            </div>
-
             {/* BUTTON */}
             <button
               type="submit"
               className="w-full bg-[#8b2c3f] text-white py-3 rounded-full font-semibold hover:bg-[#752636] transition"
             >
-              Login
+              Sign up
             </button>
           </form>
 
-          {/* REGISTER LINK */}
+          {/* LOGIN LINK */}
           <div className="mt-8 text-center text-sm text-gray-500">
-            Don’t have an account?{" "}
-            <Link to="/register">
+            Already signed up?{" "}
+            <Link to="/login">
               <button className="bg-[#8b2c3f] text-white px-4 py-1 rounded-full ml-2">
-                Register
+                Login
               </button>
             </Link>
           </div>
@@ -108,4 +107,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

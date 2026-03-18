@@ -7,7 +7,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
 
   const menu = [
     { name: "Dashboard", path: "/admin/dashboard", icon: <LayoutDashboard size={18} /> },
-    { name: "Users", path: "/admin/users", icon: <Users size={18} /> },
+    { name: "Add Category", path: "/admin/category", icon: <Users size={18} /> },
     { name: "Settings", path: "/admin/settings", icon: <Settings size={18} /> },
   ];
 

@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import axiosInstance from "../../api/axiosInstance";
 
+
 const AddCategory = () => {
   const [categories, setCategories] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editId, setEditId] = useState(null);
+const BASE_URL = axiosInstance.defaults.baseURL.replace("/api", "");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -58,7 +60,7 @@ const AddCategory = () => {
     setFormData({
       name: item.category_name,
       image: null,
-      preview: `http://localhost:5000/uploads/${item.image}`,
+      preview: `${BASE_URL}/uploads/${item.image}`,
     });
     setShowModal(true);
   };
@@ -145,7 +147,7 @@ const AddCategory = () => {
 
                 <td className="p-4">
                   <img
-                    src={`http://localhost:5000/uploads/${item.image}`}
+                    src={`${BASE_URL}/uploads/${item.image}`}
                     className="w-12 h-12 rounded object-cover"
                   />
                 </td>

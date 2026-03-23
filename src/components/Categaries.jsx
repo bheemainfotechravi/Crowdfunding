@@ -39,18 +39,28 @@ const Categaries = () => {
   return (
     <div className="flex flex-wrap justify-center gap-4 pt-12 font-semibold">
       
-      {categories.map((cat) => (
-        <button
-          key={cat.id}
-          className="flex items-center gap-3 px-5 py-2 border border-pink-200 rounded-lg bg-gray-50 shadow w-50 h-25 hover:border-pink-900 hover:scale-105 transition duration-300"
-        >
-          <span className="bg-[#8b2c3f] p-2 rounded-full text-white">
-            {getIcon(cat.category_name)}
-          </span>
+     {categories.map((cat) => (
+  <button
+    key={cat.id}
+    className="flex items-center gap-3 px-5 py-2 border border-pink-200 rounded-lg bg-gray-50 shadow w-50 h-25 hover:border-pink-900 hover:scale-105 transition duration-300"
+  >
+    <span className="bg-[#8b2c3f] p-2 rounded-full text-white flex items-center justify-center">
+      
+      {cat.image ? (
+        <img
+          src={`${axiosInstance.defaults.baseURL.replace("/api", "")}/uploads/${cat.image}`}
+          alt={cat.category_name}
+          className="w-6 h-6 object-cover rounded-full"
+        />
+      ) : (
+        getIcon(cat.category_name)
+      )}
 
-          {cat.category_name}
-        </button>
-      ))}
+    </span>
+
+    {cat.category_name}
+  </button>
+))}
 
       {/* Static Others Button */}
       <button className="flex items-center gap-4 px-6 py-4 border border-pink-200 rounded-lg bg-gray-50 shadow w-50 h-25 hover:border-pink-900 hover:scale-105 transition duration-300">

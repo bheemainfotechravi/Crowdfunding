@@ -1,7 +1,11 @@
-// AdminDashboard.jsx
 import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+
 import Navbar from "../../components/admin/Navbar";
 import Sidebar from "../../components/admin/Sidebar";
+
+import AddCategory from "../../pages/admin/AddCategory";
+
 
 const AdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -20,7 +24,11 @@ const AdminDashboard = () => {
 
         {/* Page Content */}
         <main className="p-6 overflow-y-auto">
-          <h1 className="text-2xl font-semibold">Admin Dashboard</h1>
+          <Routes>
+            <Route path="dashboard" element={<h1 className="text-2xl font-semibold">Dashboard</h1>} />
+            <Route path="category" element={<AddCategory />} />
+      
+          </Routes>
         </main>
 
       </div>

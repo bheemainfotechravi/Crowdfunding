@@ -1,10 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Menu, X, User } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useAuth } from "./../context/AuthContext";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [profileOpen, setProfileOpen] = useState(false);
+
+  const { user, logoutUser } = useAuth();
 
   const profileRef = useRef(null);
   const mobileProfileRef = useRef(null);
@@ -38,7 +41,7 @@ const Navbar = () => {
   return (
     <nav className="w-full bg-[#f5f3f3] border-b sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 md:px-6 flex items-center justify-between h-16">
-        
+
         {/* LOGO */}
         <Link to="/" className="font-bold text-xl text-[#8b2c3f]">
           Crowdfunding
@@ -47,11 +50,7 @@ const Navbar = () => {
         {/* DESKTOP MENU */}
         <div className="hidden md:flex items-center gap-6 text-gray-700">
           {navLinks.map((item, index) => (
-            <Link
-              key={index}
-              to={item.path}
-              className="hover:text-[#8b2c3f] transition"
-            >
+            <Link key={index} to={item.path} className="hover:text-[#8b2c3f]">
               {item.name}
             </Link>
           ))}
@@ -59,40 +58,64 @@ const Navbar = () => {
 
         {/* RIGHT SIDE (DESKTOP) */}
         <div className="hidden md:flex items-center gap-4 relative">
-          
+
           {/* Start fundraiser */}
           <Link
             to="/start-fundraiser"
-            className="bg-[#8b2c3f] text-white px-5 py-2 rounded-full font-semibold hover:bg-[#752636] transition"
+            className="bg-[#8b2c3f] text-white px-5 py-2 rounded-full font-semibold hover:bg-[#752636]"
           >
             Start a fundraiser
           </Link>
 
           {/* PROFILE */}
           <div ref={profileRef} className="relative">
+
             <div
               onClick={() => setProfileOpen(!profileOpen)}
-              className="border border-[#8b2c3f] p-2 rounded-full text-[#8b2c3f] cursor-pointer hover:bg-[#8b2c3f] hover:text-white transition"
+              className="flex items-center gap-3 cursor-pointer"
             >
-              <User size={20} />
-            </div>
+              {/* AVATAR FIRST */}
+              <div className="border border-[#8b2c3f] p-2 rounded-full text-[#8b2c3f] hover:bg-[#8b2c3f] hover:text-white transition">
+                <User size={20} />
+              </div>
 
+              {/* NAME AFTER */}
+              {user && (
+                <span className="text-sm font-medium text-gray-700">
+                  {user.full_name}
+                </span>
+              )}
+            </div>
+            {/* DROPDOWN */}
             {profileOpen && (
               <div className="absolute right-0 mt-3 w-44 bg-white shadow-xl rounded-lg p-4 z-50">
-                <Link
-                  to="/login"
-                  className="block mb-2 text-gray-700 hover:text-[#8b2c3f]"
-                  onClick={() => setProfileOpen(false)}
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="block text-gray-700 hover:text-[#8b2c3f]"
-                  onClick={() => setProfileOpen(false)}
-                >
-                  Register
-                </Link>
+                {user ? (
+                  <>
+                    <Link
+                      to="/profile"
+                      className="block mb-2 text-gray-700 hover:text-[#8b2c3f]"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Profile
+                    </Link>
+
+                    <button
+                      onClick={logoutUser}
+                      className="text-red-500 text-sm"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login" className="block mb-2">
+                      Login
+                    </Link>
+                    <Link to="/register" className="block">
+                      Register
+                    </Link>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -100,7 +123,7 @@ const Navbar = () => {
 
         {/* MOBILE */}
         <div className="md:hidden flex items-center gap-4">
-          
+
           {/* Mobile Profile */}
           <div ref={mobileProfileRef} className="relative">
             <User
@@ -111,29 +134,42 @@ const Navbar = () => {
 
             {profileOpen && (
               <div className="absolute right-0 mt-3 w-40 bg-white shadow-lg rounded-lg p-4 z-50">
-                <Link
-                  to="/login"
-                  className="block mb-2"
-                  onClick={() => setProfileOpen(false)}
-                >
-                  Login
-                </Link>
-                <Link
-                  to="/register"
-                  className="block"
-                  onClick={() => setProfileOpen(false)}
-                >
-                  Register
-                </Link>
+                {user ? (
+                  <>
+                    <Link
+                      to="/profile"
+                      className="block mb-2"
+                      onClick={() => setProfileOpen(false)}
+                    >
+                      Profile
+                    </Link>
+
+                    <button
+                      onClick={logoutUser}
+                      className="text-red-500 text-sm"
+                    >
+                      Logout
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <Link to="/login" className="block mb-2">
+                      Login
+                    </Link>
+                    <Link to="/register" className="block">
+                      Register
+                    </Link>
+                  </>
+                )}
               </div>
             )}
           </div>
 
           {/* MENU BUTTON */}
           {menuOpen ? (
-            <X size={26} onClick={() => setMenuOpen(false)} className="cursor-pointer" />
+            <X size={26} onClick={() => setMenuOpen(false)} />
           ) : (
-            <Menu size={26} onClick={() => setMenuOpen(true)} className="cursor-pointer" />
+            <Menu size={26} onClick={() => setMenuOpen(true)} />
           )}
         </div>
       </div>
@@ -146,7 +182,7 @@ const Navbar = () => {
               key={index}
               to={item.path}
               onClick={() => setMenuOpen(false)}
-              className="block text-gray-700 hover:text-[#8b2c3f]"
+              className="block text-gray-700"
             >
               {item.name}
             </Link>
